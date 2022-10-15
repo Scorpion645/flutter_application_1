@@ -10,7 +10,7 @@ class CategoryItem extends StatelessWidget {
 
   static void selectCategory(context, dynamic destination) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (BuildContext context) {
+        .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
       return destination;
     }));
   }

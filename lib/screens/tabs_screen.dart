@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models.dart/appBar.dart';
+import 'package:flutter_application_1/models.dart/app_drawer.dart';
 import 'package:flutter_application_1/screens/categories_screen.dart';
 import 'package:flutter_application_1/screens/favorites_screen.dart';
 
@@ -15,16 +15,22 @@ class _TabsScreenState extends State<TabsScreen> {
   int selectedScreen = 0;
 
   final List<Map<String, dynamic>> screens = [
-    {'screen':  CategoriesScreen(), 'title': 'تصنيفات الرحلات'},
-    {'screen':  FavoritesScreen(), 'title': 'المفضلة'}
+    {'screen': CategoriesScreen(), 'title': 'تصنيفات الرحلات'},
+    {'screen': FavoritesScreen(), 'title': 'المفضلة'}
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true,
-        title: Text('${screens[selectedScreen]['title']}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          '${screens[selectedScreen]['title']}',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+        ),
       ),
+          drawer: AppDrawer(),
+
       body: screens[selectedScreen]['screen'],
       bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Colors.amber,
