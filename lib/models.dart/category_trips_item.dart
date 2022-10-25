@@ -62,12 +62,10 @@ class CategoryTripsItem extends StatelessWidget {
     required this.removeItem,
   });
 
-  void selectTrip(BuildContext context) {
+  void selectTrip(BuildContext context, Widget destination) {
     Navigator.of(context)
         .push(MaterialPageRoute(
-            builder: ((context) => TripDetailsScreen(
-                  tripId: id,
-                ))))
+            builder: ((context) => destination)))
         .then((result) {
       if (result != null) {
         removeItem(result);
@@ -79,7 +77,7 @@ class CategoryTripsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => selectTrip(context),
+      onTap: () => selectTrip(context, TripDetailsScreen(tripId: id)),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 7,
