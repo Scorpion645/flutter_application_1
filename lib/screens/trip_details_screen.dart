@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/app_data.dart';
 import 'package:flutter_application_1/models.dart/appBar.dart';
@@ -15,7 +17,10 @@ class TripDetailsScreen extends StatelessWidget {
       },
     );
     return Scaffold(
-      appBar: myAppBar(selectedTrip.title),
+      appBar: AppBar(
+        title: Text(selectedTrip.title),
+        leading: BackButton(onPressed: () => Navigator.of(context).pop(false)),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -31,38 +36,58 @@ class TripDetailsScreen extends StatelessWidget {
             ),
             ListContainer(
               newWidget: ListView.builder(
-                itemCount: selectedTrip.activities.length,
-                itemBuilder: ((context, index) {
-                return Card(
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-                    child: Text(selectedTrip.activities[index], textAlign: TextAlign.right)),
-                );
-              })),),
+                  itemCount: selectedTrip.activities.length,
+                  itemBuilder: ((context, index) {
+                    return Card(
+                      child: Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                          child: Text(selectedTrip.activities[index],
+                              textAlign: TextAlign.right)),
+                    );
+                  })),
+            ),
             buildTitleBar(text: 'البرنامج اليومى'),
-            ListContainer(newWidget: 
-            ListView.builder(
-                itemCount: selectedTrip.program.length,
-                itemBuilder: ((context, index) {
-                return ListTile(
-                  trailing: CircleAvatar(backgroundColor: Colors.amber, child: Text('${index} يوم', style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),
-                        ),),
-                  title: Text(selectedTrip.program[index], textAlign: TextAlign.right,),
-                );
-              })),),
-            
+            ListContainer(
+              newWidget: ListView.builder(
+                  itemCount: selectedTrip.program.length,
+                  itemBuilder: ((context, index) {
+                    return ListTile(
+                      trailing: CircleAvatar(
+                        backgroundColor: Colors.amber,
+                        child: Text(
+                          '${index} يوم',
+                          style: TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      title: Text(
+                        selectedTrip.program[index],
+                        textAlign: TextAlign.right,
+                      ),
+                    );
+                  })),
+            ),
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.amber,
+          child: Icon(Icons.delete, color: Colors.black),
+          onPressed: () {
+            Navigator.of(context).pop(tripId);
+            print(tripId);
+          }),
     );
   }
 }
 
 class ListContainer extends StatelessWidget {
-      final Widget newWidget;
+  final Widget newWidget;
 
   const ListContainer({
-    Key? key, required this.newWidget,
+    Key? key,
+    required this.newWidget,
   }) : super(key: key);
 
   @override

@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -16,6 +14,7 @@ class CategoryTripsItem extends StatelessWidget {
   final TripType tripType;
   final String text;
   final String id;
+  final Function removeItem;
 
   String get seasonText {
     switch (season) {
@@ -58,14 +57,29 @@ class CategoryTripsItem extends StatelessWidget {
     required this.duration,
     required this.season,
     required this.text,
-    required this.tripType, 
+    required this.tripType,
     required this.id,
+    required this.removeItem,
   });
+
+  void selectTrip(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(
+            builder: ((context) => TripDetailsScreen(
+                  tripId: id,
+                ))))
+        .then((result) {
+      if (result != null) {
+        removeItem(result);
+        print(result);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => CategoryItem.selectCategory(context, TripDetailsScreen(tripId: id,)),
+      onTap: () => selectTrip(context),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 7,
@@ -89,7 +103,6 @@ class CategoryTripsItem extends StatelessWidget {
                     gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        // ignore: prefer_const_literals_to_create_immutables
                         stops: [
                       0.5,
                       0.95

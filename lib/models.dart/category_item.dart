@@ -8,9 +8,9 @@ class CategoryItem extends StatelessWidget {
 
   const CategoryItem({super.key, required this.imageUrl, required this.title, required this.id});
 
-  static void selectCategory(context, dynamic destination) {
+  static  selectCategory(context, dynamic destination) {
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
+        .push(MaterialPageRoute(builder: (BuildContext context) {
       return destination;
     }));
   }
@@ -20,8 +20,7 @@ class CategoryItem extends StatelessWidget {
     return InkWell(
       onTap: () => selectCategory(
           context,
-          CategoryTripsScreen(
-            appBarTitle: title, categoryId: id, tripId: '',
+          CategoryTripsScreen( categoryId: id, categoryTitle: title,
           )),
       child: Stack(alignment: Alignment.center, children: [
         ClipRRect(
